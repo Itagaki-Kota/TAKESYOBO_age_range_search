@@ -23,7 +23,7 @@ btn_gatya.addEventListener("click", function() {
 
     let url_array = [];
 
-    fetch("http://localhost:8000/output2.csv")
+    fetch("output2.csv")
         .then(response => response.text())
         .then(data => {
             // CSVを行ごとに分割
