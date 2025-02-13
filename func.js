@@ -1,8 +1,10 @@
-let btn_gatya = document.querySelector("#gatya");
+let btn_gatya_takesyobo = document.querySelector("#gatya_takesyobo");
+let btn_gatya_idolone = document.querySelector("#gatya_idolone");
+let btn_gatya_takesyobo_idolone = document.querySelector("#gatya_takesyobo_idolone");
 let inpfield_min_age = document.querySelector("#min_age");
 let inpfield_max_age = document.querySelector("#max_age");
 
-btn_gatya.addEventListener("click", function() {
+function gatya_func(csv_filename) {
 
     // 年齢の下限と上限を取得
     let min_age = inpfield_min_age.value;
@@ -20,10 +22,9 @@ btn_gatya.addEventListener("click", function() {
     max_age = parseInt(max_age, 10);
 
     // CSVファイルを fetch() で読み込み
-
     let url_array = [];
 
-    fetch("output2.csv")
+    fetch(csv_filename)
         .then(response => response.text())
         .then(data => {
             // CSVを行ごとに分割
@@ -38,16 +39,6 @@ btn_gatya.addEventListener("click", function() {
                 let age_at_release = cols[4];
 
                 if (min_age <= age_at_release && age_at_release <= max_age) {
-                    // const tr = document.createElement('tr');
-
-                    // cols.forEach(col => {
-                    //     //const td = document.createElement('td');
-                    //     //td.textContent = col;
-                    //     tr.appendChild(td);
-                    // });
-
-                    // tableBody.appendChild(tr);
-
                     url_array.push(DVD_url);
                 }
             });
@@ -61,4 +52,9 @@ btn_gatya.addEventListener("click", function() {
         .catch(error => console.error('Error reading CSV:', error));
 
 
-})
+}
+
+btn_gatya_takesyobo.addEventListener("click", () => gatya_func("output_takesyobo.csv"));
+btn_gatya_idolone.addEventListener("click", () => gatya_func("output_idolone.csv"));
+btn_gatya_takesyobo_idolone.addEventListener("click", () => gatya_func("output_merge.csv"));
+
